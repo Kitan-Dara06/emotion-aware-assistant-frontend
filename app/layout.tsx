@@ -1,5 +1,5 @@
 // app/layout.tsx
-import './globals.css'; // or your main CSS
+import "../styles/globals.css"; // or your main CSS
 
 export const metadata = {
   title: 'Emotionally Aware Assistant',
