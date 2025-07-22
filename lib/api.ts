@@ -1,4 +1,8 @@
 // 6. Sample: lib/api.ts
+const ROUTES = {
+  chat: "/api/chat",
+};
+
 export async function postMessage(input: string): Promise<string> {
   const res = await fetch(ROUTES.chat, {
     method: "POST",
