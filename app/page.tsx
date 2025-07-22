@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { postMessage } from "@/lib/api";
 import ChatBubble from "@/components/ChatBubble";
 import ChatInput from "@/components/ChatInput";
@@ -9,6 +9,19 @@ export default function Page() {
   const [messages, setMessages] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // 🧠 Ping backend on load to wake it up
+  useEffect(() => {
+    const pingBackend = async () => {
+      try {
+        await fetch("https://emotion-aware-prod-assistant.onrender.com");
+        console.log("✅ Backend pinged");
+      } catch (err) {
+        console.warn("⚠️ Backend ping failed:", err);
+      }
+    };
+    pingBackend();
+  }, []);
+
   const handleSend = async (text: string) => {
     const userMsg = `You: ${text}`;
     setMessages((prev) => [...prev, userMsg]);
@@ -16,7 +29,6 @@ export default function Page() {
     try {
       setLoading(true);
       const res = await postMessage(text);
-
       const botMsg = `Assistant: ${res?.trim() || "(no response)"}`;
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
