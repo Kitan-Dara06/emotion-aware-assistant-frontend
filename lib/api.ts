@@ -1,7 +1,8 @@
 // 6. Sample: lib/api.ts
-const ROUTES = {
-  chat: "/api/chat",
+export const ROUTES = {
+  chat: "https://emotion-aware-prod-assistant.onrender.com", // Replace with your backend URL
 };
+
 
 export async function postMessage(input: string): Promise<string> {
   const res = await fetch(ROUTES.chat, {
