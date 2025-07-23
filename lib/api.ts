@@ -1,16 +1,20 @@
 // lib/api.ts
+const ROUTES = {
+  chat: "https://emotion-aware-prod-assistant.onrender.com/chat"
+};
+
 export async function postMessage(input: string): Promise<string> {
-  const res = await fetch("https://emotion-aware-prod-assistant.onrender.com/chat", {
+  const res = await fetch(ROUTES.chat, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ input }),
+    body: JSON.stringify({
+      input,
+      user_profile: "",
+      history: [],
+      emotion_history: []
+    }),
   });
 
-  if (!res.ok) {
-    console.error("Error response:", await res.text());
-    return "Sorry, something went wrong.";
-  }
-
   const data = await res.json();
-  return data.final_response || "No response from assistant.";
+  return data?.final_response ?? "(no response)";
 }
