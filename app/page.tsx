@@ -30,7 +30,7 @@ export default function Page() {
       setLoading(true);
       const res = await postMessage(text);
       console.log("📩 Bot raw response:", res); 
-      const botMsg = `Assistant: ${res?.trim() || "(no response)"}`;
+      const botMsg = `Assistant: ${res?.final_response?.trim() || "(no response)"}`;
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
       console.error("Error sending message:", error);
