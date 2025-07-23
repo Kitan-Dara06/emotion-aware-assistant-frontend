@@ -12,13 +12,17 @@ export async function postMessage(input: string): Promise<string> {
         input,
         user_profile: "",
         history: [],
-        emotion_history: []
+        emotion_history: [],
       }),
     });
 
     const data = await res.json();
     console.log("✅ Backend response:", data);
-    return data.final_response ?? "(no response)";
+
+    // RETURN ONLY THE final_response STRING
+    return typeof data?.final_response === "string"
+      ? data.final_response
+      : "(no response)";
   } catch (err) {
     console.error("❌ Failed to fetch from backend:", err);
     return "(error processing message)";
