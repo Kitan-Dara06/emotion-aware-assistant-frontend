@@ -28,7 +28,8 @@ export default function Page() {
 
     try {
       setLoading(true);
-      const res = await postMessage(text);
+      const res = await postMessage(userInput);
+      console.log("📩 Bot raw response:", res); 
       const botMsg = `Assistant: ${res?.trim() || "(no response)"}`;
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
