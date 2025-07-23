@@ -1,4 +1,3 @@
-// lib/api.ts
 const ROUTES = {
   chat: "https://emotion-aware-prod-assistant.onrender.com/chat"
 };
@@ -13,7 +12,7 @@ interface BackendResponse {
 }
 
 export async function postMessage(input: string): Promise<BackendResponse> {
-  const res = await fetch("https://emotion-aware-prod-assistant.onrender.com", {
+  const res = await fetch(ROUTES.chat, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ input }),
