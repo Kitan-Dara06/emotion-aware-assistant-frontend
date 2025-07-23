@@ -18,7 +18,7 @@ export async function postMessage(input: string): Promise<string> {
 
     const data = await res.json();
     console.log("✅ Backend response:", data);
-    return data?.final_response ?? "(no response)";
+    return data.final_response ?? "(no response)";
   } catch (err) {
     console.error("❌ Failed to fetch from backend:", err);
     return "(error processing message)";
