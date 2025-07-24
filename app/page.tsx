@@ -18,6 +18,7 @@ export default function Page() {
 
       // Fetch welcome message
       const welcomeRes = await postMessage(""); // send empty input
+      console.log("👋 Welcome message raw response:", welcomeRes);
       const welcomeMsg = `Assistant: ${welcomeRes?.final_response?.trim() || "(no response)"}`;
       setMessages([welcomeMsg]); // initialize messages with welcome
     } catch (err) {
