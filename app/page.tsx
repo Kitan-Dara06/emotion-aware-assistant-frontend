@@ -11,16 +11,21 @@ export default function Page() {
 
   // 🧠 Ping backend on load to wake it up
   useEffect(() => {
-    const pingBackend = async () => {
-      try {
-        await fetch("https://emotion-aware-prod-assistant.onrender.com");
-        console.log("✅ Backend pinged");
-      } catch (err) {
-        console.warn("⚠️ Backend ping failed:", err);
-      }
-    };
-    pingBackend();
-  }, []);
+  const loadWelcome = async () => {
+    try {
+      await fetch("https://emotion-aware-prod-assistant.onrender.com");
+      console.log("✅ Backend pinged");
+
+      // Fetch welcome message
+      const welcomeRes = await postMessage(""); // send empty input
+      const welcomeMsg = `Assistant: ${welcomeRes?.final_response?.trim() || "(no response)"}`;
+      setMessages([welcomeMsg]); // initialize messages with welcome
+    } catch (err) {
+      console.warn("⚠️ Backend failed:", err);
+    }
+  };
+  loadWelcome();
+   }, []);
 
   const handleSend = async (text: string) => {
     const userMsg = `You: ${text}`;
