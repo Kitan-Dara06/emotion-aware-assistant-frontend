@@ -11,14 +11,19 @@ interface BackendResponse {
   final_response: string | null;
 }
 
-export async function postMessage(input: string): Promise<BackendResponse> {
+export async function postMessage(input: string): Promise<any> {
+  const payload = {
+    input,
+    user_profile: "You prefer warm, validating responses.", // can be static for now
+    history: [], // empty or track message history later
+    emotion_history: [], // empty or track later
+  };
+
   const res = await fetch(ROUTES.chat, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ input }),
+    body: JSON.stringify(payload),
   });
 
-  const data = await res.json();
-  console.log("✅ Backend response:", data);
-  return data;
+  return res.json();
 }
